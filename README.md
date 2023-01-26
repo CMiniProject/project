@@ -25,3 +25,19 @@
 
 위 기능들이 잘 구현되면, 사용자로부터 자료형의 범위를 넘어가는 큰 수를 입력받아 계산할 수 있는 계산기도 구현하고 싶다.
 
+---
+
+Git commit message convention은 아래의 문서를 따릅니다.
+
+https://www.notion.so/windyday/Git-Commit-Convention-1f85af756114443a98065f5bd9a20830
+
+Commit message의 예시는 다음과 같습니다.
+
+```bash
+feat(Init) : 초기 프로젝트 세팅
+```
+---
+
+C code style은 아래의 문서를 참고하나, 별도의 명시적인 형식은 없습니다.
+
+Reference : https://gist.github.com/davidzchen/9187878
