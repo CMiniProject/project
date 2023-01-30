@@ -48,6 +48,20 @@ void push(Stack* stack, int data) {
 	stack->size++;
 }
 
+int pop(Stack* stack) {
+	if (isempty(stack)) {
+		printf("stack empty\n");
+	}
+	else {
+		Node* current_node = stack->top;
+		int data = current_node->data;
+		Node* before_node = current_node->next;
+		stack->top = before_node;
+		free(current_node);
+		return data;
+	}
+}
+
 int main() {
 	Stack* stack = stack_init();
 	print_stack(stack);
@@ -55,5 +69,10 @@ int main() {
 	print_stack(stack);
 	push(stack, 5);
 	print_stack(stack);
+	pop(stack);
+	print_stack(stack);
+	pop(stack);
+	print_stack(stack);
+	pop(stack);
 	//printf("Hello world!");
 }
