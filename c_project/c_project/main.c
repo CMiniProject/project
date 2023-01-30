@@ -40,8 +40,20 @@ void print_stack(Stack* stack) {
 	printf("NULL \n");
 }
 
+void push(Stack* stack, int data) {
+	Node* new_node = malloc(sizeof(*new_node));
+	new_node->data = data;
+	new_node->next = stack->top;
+	stack->top = new_node;
+	stack->size++;
+}
+
 int main() {
 	Stack* stack = stack_init();
+	print_stack(stack);
+	push(stack, 3);
+	print_stack(stack);
+	push(stack, 5);
 	print_stack(stack);
 	//printf("Hello world!");
 }
