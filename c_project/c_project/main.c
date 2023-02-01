@@ -14,7 +14,7 @@ int main() {
 	pop(stack, data);
 	print_stack(stack);
 	pop(stack, data);
-	//printf("Hello world!");
+	printf("Hello world!");
 	
 	free(data);
 	free(stack);
