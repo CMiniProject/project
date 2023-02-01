@@ -8,18 +8,18 @@
 typedef struct _node {
 	int data;
 	struct _node* next;
-}Node;
+} Node;
 
 typedef struct _stack {
 	Node* top;
 	int size;
-}Stack;
+} Stack;
 
-Stack* stack_init();
-int size(Stack* stack);
-bool isempty(Stack* stack);
+Stack* init_stack();
+int size_stack(Stack* stack);
+bool is_empty(Stack* stack);
 void print_stack(Stack* stack);
 void push(Stack* stack, int data);
-int pop(Stack* stack);
+void pop(Stack* stack, int* data);
 
 #endif
