@@ -40,18 +40,25 @@ void push(Stack* stack, int data) {
 	stack->size++;
 }
 
-void pop(Stack* stack, int* data) {
+bool pop(Stack* stack, int** data_ptr) {
 	if (is_empty(stack)) {
 		printf("stack empty\n");
-		*data = -1;
+		*data_ptr = NULL;
+		return 0;
 	}
 	else {
+		if (*data_ptr != NULL) {
+			free(*data_ptr);
+		}
+		*data_ptr = malloc(sizeof(**data_ptr));
+		int* data = *data_ptr;
 		Node* current_node = stack->top;
 		*data = current_node->data;
 		Node* before_node = current_node->next;
 		stack->top = before_node;
 		free(current_node);
 		stack->size--;
+		return 1;
 	}
 }
 

@@ -20,6 +20,6 @@ int size_stack(Stack* stack);
 bool is_empty(Stack* stack);
 void print_stack(Stack* stack);
 void push(Stack* stack, int data);
-void pop(Stack* stack, int* data);
+bool pop(Stack* stack, int** data_ptr);
 
 #endif
