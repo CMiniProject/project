@@ -1,7 +1,104 @@
 #include <stdio.h>
 #include "stack.h"
+#define MAX 20
+
+void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
+	int i = 0;
+	char operator;
+	char* token = infix;
+	while (*token != '\0') {
+		switch (*token) {
+		case '(':
+			push(stack, '(');
+			break;
+		case ')':
+			while (!is_empty(stack)) {
+				operator = top(stack);
+				if (operator == '(') {
+					pop(stack, data_ptr);
+					break;
+				}
+				pop(stack, data_ptr);
+				*(postfix + i) = **data_ptr;
+				i++;
+			}
+			break;
+		case '*':
+			while (!is_empty(stack)) {
+				operator = top(stack);
+				if ((operator = '+') && (operator = '-')) {
+					break;
+				}
+				pop(stack, data_ptr);
+				*(postfix + i) = **data_ptr;
+				i++;
+			}
+			push(stack, '*');
+			break;
+		case '/':
+			while (!is_empty(stack)) {
+				operator = top(stack);
+				if ((operator = '+') && (operator = '-')) {
+					break;
+				}
+				pop(stack, data_ptr);
+				*(postfix + i) = **data_ptr;
+				i++;
+			}
+			push(stack, '/');
+			break;
+		case '+':
+			while (!is_empty(stack)) {
+				operator = top(stack);
+				if (operator == '(') {
+					break;
+				}
+				pop(stack, data_ptr);
+				*(postfix + i) = **data_ptr;
+				i++;
+			}
+			push(stack, '+');
+			break;
+		case '-':
+			while (!is_empty(stack)) {
+				operator = top(stack);
+				if (operator == '(') {
+					break;
+				}
+				pop(stack, data_ptr);
+				*(postfix + i) = **data_ptr;
+				i++;
+			}
+			push(stack, '-');
+			break;
+		default:
+			*(postfix + i) = *token;
+			i++;
+		}
+		token++;
+	}
+	while (!is_empty(stack)) {
+		pop(stack, data_ptr);
+		*(postfix + i) = **data_ptr;
+		i++;
+	}
+	*(postfix + i) = '\0';
+}
 
 int main() {
+	
+	char infix[MAX];
+	char postfix[MAX];
+	Data* data = NULL;
+	Stack* stack = init_stack();
+
+	printf("수식을 입력하세요: ");
+	scanf("%s", infix);
+	to_postfix(infix, postfix, stack, &data);
+	printf("후위표기식: %s", postfix);
+	
+
+	/*
 	Data* data = NULL;
 	Stack* stack = init_stack();
 	print_stack(stack);
@@ -19,6 +116,6 @@ int main() {
 		free(data);
 	}
 	free(stack);
-
+	*/
 	return 0;
 }

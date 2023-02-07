@@ -62,3 +62,7 @@ bool pop(Stack* stack, Data** data_ptr) {
 	}
 }
 
+Data top(Stack* stack) {
+	return stack->top->data;
+}
+
