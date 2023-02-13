@@ -93,7 +93,11 @@ int main() {
 	Stack* stack = init_stack();
 
 	printf("수식을 입력하세요: ");
-	scanf("%s", infix);
+	if (scanf("%s", infix) != 1)
+	{
+		printf("입력 오류\n");
+		return 0;
+	}
 	to_postfix(infix, postfix, stack, &data);
 	printf("후위표기식: %s", postfix);
 	
@@ -111,11 +115,11 @@ int main() {
 	pop(stack, &data);
 	print_stack(stack);
 	pop(stack, &data);
-	
+	*/
 	if (data != NULL) {
 		free(data);
 	}
 	free(stack);
-	*/
+
 	return 0;
 }
