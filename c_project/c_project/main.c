@@ -26,7 +26,7 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 		case '*':
 			while (!is_empty(stack)) {
 				operator = top(stack);
-				if ((operator = '+') && (operator = '-')) {
+				if (operator == '+' || operator == '-' || operator == '(') {
 					break;
 				}
 				pop(stack, data_ptr); 
@@ -38,7 +38,7 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 		case '/':
 			while (!is_empty(stack)) {
 				operator = top(stack);
-				if ((operator = '+') && (operator = '-')) {
+				if (operator == '+' || operator == '-' || operator == '(') {
 					break;
 				}
 				pop(stack, data_ptr);
