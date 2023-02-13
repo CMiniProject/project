@@ -3,7 +3,6 @@
 #define MAX 50
 
 void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
-	int i = 0;
 	char operator;
 	char* token = infix;
 	while (*token != '\0') {
@@ -19,8 +18,8 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 					break;
 				}
 				pop(stack, data_ptr);
-				*(postfix + i) = **data_ptr;
-				i++;
+				*(postfix++) = **data_ptr;
+				*(postfix++) = ' ';
 			}
 			break;
 		case '*':
@@ -30,8 +29,8 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 					break;
 				}
 				pop(stack, data_ptr); 
-				*(postfix + i) = **data_ptr;
-				i++;
+				*(postfix++) = **data_ptr;
+				*(postfix++) = ' ';
 			}
 			push(stack, '*');
 			break;
@@ -42,8 +41,8 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 					break;
 				}
 				pop(stack, data_ptr);
-				*(postfix + i) = **data_ptr;
-				i++;
+				*(postfix++) = **data_ptr;
+				*(postfix++) = ' ';
 			}
 			push(stack, '/');
 			break;
@@ -54,8 +53,8 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 					break;
 				}
 				pop(stack, data_ptr);
-				*(postfix + i) = **data_ptr;
-				i++;
+				*(postfix++) = **data_ptr;
+				*(postfix++) = ' ';
 			}
 			push(stack, '+');
 			break;
@@ -66,23 +65,23 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 					break;
 				}
 				pop(stack, data_ptr);
-				*(postfix + i) = **data_ptr;
-				i++;
+				*(postfix++) = **data_ptr;
+				*(postfix++) = ' ';
 			}
 			push(stack, '-');
 			break;
 		default:
-			*(postfix + i) = *token;
-			i++;
+			*(postfix++) = *token;
+			*(postfix++) = ' ';
 		}
 		token++;
 	}
 	while (!is_empty(stack)) {
 		pop(stack, data_ptr);
-		*(postfix + i) = **data_ptr;
-		i++;
+		*(postfix++) = **data_ptr;
+		*(postfix++) = ' ';
 	}
-	*(postfix + i) = '\0';
+	*(postfix++) = '\0';
 }
 
 int main() {
