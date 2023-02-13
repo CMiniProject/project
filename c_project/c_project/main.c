@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "stack.h"
-#define MAX 20
+#define MAX 50
 
 void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 	int i = 0;
@@ -29,7 +29,7 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 				if ((operator = '+') && (operator = '-')) {
 					break;
 				}
-				pop(stack, data_ptr);
+				pop(stack, data_ptr); 
 				*(postfix + i) = **data_ptr;
 				i++;
 			}
