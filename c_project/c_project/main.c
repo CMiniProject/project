@@ -11,6 +11,7 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 		case '(':
 			push(stack, '(');
 			negative = 1;
+			token++;
 			break;
 		case ')':
 			while (!is_empty(stack)) {
@@ -24,6 +25,7 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 				*(postfix++) = ' ';
 			}
 			negative = 0;
+			token++;
 			break;
 		case '*':
 			while (!is_empty(stack)) {
@@ -37,6 +39,7 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 			}
 			push(stack, '*');
 			negative = 1;
+			token++;
 			break;
 		case '/':
 			while (!is_empty(stack)) {
@@ -50,6 +53,7 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 			}
 			push(stack, '/');
 			negative = 1;
+			token++;
 			break;
 		case '+':
 			while (!is_empty(stack)) {
@@ -63,10 +67,12 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 			}
 			push(stack, '+');
 			negative = 1;
+			token++;
 			break;
 		case '-':
 			if (negative == 1) {
 				*(postfix++) = *token;
+				token++;
 				break;
 			}
 			else {
@@ -81,14 +87,19 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 				}
 				push(stack, '-');
 				negative = 1;
+				token++;
 				break;
 			}
 		default:
-			*(postfix++) = *token;
+			while (*token >= '0' && *token <= '9') {
+				*(postfix++) = *token;
+				token++;
+			}
 			*(postfix++) = ' ';
 			negative = 0;
+			break;
 		}
-		token++;
+		//token++;
 	}
 	while (!is_empty(stack)) {
 		pop(stack, data_ptr);
