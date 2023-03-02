@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "stack.h"
+#include <string.h>
 #define MAX 50
 
 void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
@@ -111,6 +112,16 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 	*(postfix++) = '\0';
 }
 
+void reverse_string(char* postfix) {
+	int len = strlen(postfix);
+	Data s;
+	for (int i = 0; i < len/2; i++) {
+		s = postfix[i];
+		postfix[i] = postfix[len - i - 1];
+		postfix[len - i - 1] = s;
+	}
+}
+
 int main() {
 	char infix[MAX];
 	char postfix[MAX];
@@ -124,8 +135,10 @@ int main() {
 		return 0;
 	}
 	to_postfix(infix, postfix, stack, &data);
-	printf("후위표기식: %s", postfix);
-	
+	printf("후위표기식: %s\n", postfix);
+	reverse_string(postfix);
+	printf("문자열 반전: %s\n", postfix);
+
 	if (data != NULL) {
 		free(data);
 	}
