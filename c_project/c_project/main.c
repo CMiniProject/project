@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "stack.h"
 #include <string.h>
+#include <stdlib.h>
 #define MAX 50
 
 void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
@@ -111,7 +112,7 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 	}
 	*(postfix++) = '\0';
 }
-
+/*
 void reverse_string(char* postfix) {
 	int len = strlen(postfix);
 	Data s;
@@ -121,11 +122,61 @@ void reverse_string(char* postfix) {
 		postfix[len - i - 1] = s;
 	}
 }
+*/
+Data calculate(char* postfix, Stack* stack, Data* data) {
+	char* delimiter = " ";
+	char* token;
+	Data a, b, result;
+
+	token = strtok(postfix, delimiter);
+
+	while (token != NULL) {
+		switch (*token)
+		{
+		case '+':
+			a = top(stack);
+			pop(stack, &data);
+			b = top(stack);
+			pop(stack, &data);
+			push(stack, a+b);
+			break;
+		case '-':
+			a = top(stack);
+			pop(stack, &data);
+			b = top(stack);
+			pop(stack, &data);
+			push(stack, a - b);
+			break;
+		case '*':
+			a = top(stack);
+			pop(stack, &data);
+			b = top(stack);
+			pop(stack, &data);
+			push(stack, a * b);
+			break;
+		case '/':
+			a = top(stack);
+			pop(stack, &data);
+			b = top(stack);
+			pop(stack, &data);
+			push(stack, a / b);
+			break;
+		default:
+			push(stack, atoi(token));
+			break;
+		}
+		token = strtok(NULL, delimiter);
+	}
+	result = top(stack);
+	pop(stack, &data);
+	return result;
+}
 
 int main() {
 	char infix[MAX];
 	char postfix[MAX];
 	Data* data = NULL;
+	Data result;
 	Stack* stack = init_stack();
 
 	printf("수식을 입력하세요: ");
@@ -136,8 +187,10 @@ int main() {
 	}
 	to_postfix(infix, postfix, stack, &data);
 	printf("후위표기식: %s\n", postfix);
-	reverse_string(postfix);
-	printf("문자열 반전: %s\n", postfix);
+	//reverse_string(postfix);
+	//printf("문자열 반전: %s\n", postfix);
+	result = calculate(postfix, stack, data);
+	printf("결과: %d", result);
 
 	if (data != NULL) {
 		free(data);

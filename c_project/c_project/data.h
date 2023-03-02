@@ -2,6 +2,6 @@
 #ifndef _DATA_H_
 #define _DATA_H_
 
-#define Data char
+#define Data int
 
 #endif
