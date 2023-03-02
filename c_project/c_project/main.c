@@ -90,6 +90,9 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 				token++;
 				break;
 			}
+		case ' ':
+			token++;
+			break;
 		default:
 			while (*token >= '0' && *token <= '9') {
 				*(postfix++) = *token;
@@ -99,7 +102,6 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 			negative = 0;
 			break;
 		}
-		//token++;
 	}
 	while (!is_empty(stack)) {
 		pop(stack, data_ptr);
@@ -110,14 +112,13 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 }
 
 int main() {
-	
 	char infix[MAX];
 	char postfix[MAX];
 	Data* data = NULL;
 	Stack* stack = init_stack();
 
 	printf("수식을 입력하세요: ");
-	if (scanf("%s", infix) != 1)
+	if (scanf("%[^\n]", infix) != 1)
 	{
 		printf("입력 오류\n");
 		return 0;
@@ -125,7 +126,11 @@ int main() {
 	to_postfix(infix, postfix, stack, &data);
 	printf("후위표기식: %s", postfix);
 	
-
+	if (data != NULL) {
+		free(data);
+	}
+	free(stack);
+	
 	/*
 	Data* data = NULL;
 	Stack* stack = init_stack();
@@ -140,10 +145,6 @@ int main() {
 	print_stack(stack);
 	pop(stack, &data);
 	*/
-	if (data != NULL) {
-		free(data);
-	}
-	free(stack);
 
 	return 0;
 }
