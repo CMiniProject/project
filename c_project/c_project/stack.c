@@ -23,13 +23,13 @@ bool is_empty(Stack* stack) {
 void print_stack(Stack* stack) {
 	Node* current_node = stack->top;
 	while (current_node != NULL) {
-		printf("%d ->", current_node->data);
+		printf("%c ->", current_node->data);
 		current_node = current_node->next;
 	}
 	printf("NULL \n");
 }
 
-void push(Stack* stack, int data) {
+void push(Stack* stack, Data data) {
 	Node* new_node = malloc(sizeof(*new_node));
 	if (new_node == NULL) {
 		exit(1);
@@ -40,7 +40,7 @@ void push(Stack* stack, int data) {
 	stack->size++;
 }
 
-bool pop(Stack* stack, int** data_ptr) {
+bool pop(Stack* stack, Data** data_ptr) {
 	if (is_empty(stack)) {
 		printf("stack empty\n");
 		*data_ptr = NULL;
@@ -51,7 +51,7 @@ bool pop(Stack* stack, int** data_ptr) {
 			free(*data_ptr);
 		}
 		*data_ptr = malloc(sizeof(**data_ptr));
-		int* data = *data_ptr;
+		Data* data = *data_ptr;
 		Node* current_node = stack->top;
 		*data = current_node->data;
 		Node* before_node = current_node->next;
@@ -60,5 +60,9 @@ bool pop(Stack* stack, int** data_ptr) {
 		stack->size--;
 		return 1;
 	}
+}
+
+Data top(Stack* stack) {
+	return stack->top->data;
 }
 
