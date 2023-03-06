@@ -2,7 +2,7 @@
 #include "stack.h"
 #include <string.h>
 #include <stdlib.h>
-#define MAX 50
+#define MAX 100
 
 void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 	char operator;
@@ -112,17 +112,7 @@ void to_postfix(char* infix, char* postfix, Stack* stack, Data** data_ptr) {
 	}
 	*(postfix++) = '\0';
 }
-/*
-void reverse_string(char* postfix) {
-	int len = strlen(postfix);
-	Data s;
-	for (int i = 0; i < len/2; i++) {
-		s = postfix[i];
-		postfix[i] = postfix[len - i - 1];
-		postfix[len - i - 1] = s;
-	}
-}
-*/
+
 Data calculate(char* postfix, Stack* stack, Data* data) {
 	char* delimiter = " ";
 	char* token;
@@ -145,7 +135,7 @@ Data calculate(char* postfix, Stack* stack, Data* data) {
 			pop(stack, &data);
 			b = top(stack);
 			pop(stack, &data);
-			push(stack, a - b);
+			push(stack, b - a);
 			break;
 		case '*':
 			a = top(stack);
@@ -159,7 +149,7 @@ Data calculate(char* postfix, Stack* stack, Data* data) {
 			pop(stack, &data);
 			b = top(stack);
 			pop(stack, &data);
-			push(stack, a / b);
+			push(stack, b / a);
 			break;
 		default:
 			push(stack, atoi(token));
@@ -187,8 +177,6 @@ int main() {
 	}
 	to_postfix(infix, postfix, stack, &data);
 	printf("후위표기식: %s\n", postfix);
-	//reverse_string(postfix);
-	//printf("문자열 반전: %s\n", postfix);
 	result = calculate(postfix, stack, data);
 	printf("결과: %d", result);
 
@@ -197,20 +185,5 @@ int main() {
 	}
 	free(stack);
 	
-	/*
-	Data* data = NULL;
-	Stack* stack = init_stack();
-	print_stack(stack);
-	push(stack, 'a');
-	print_stack(stack);
-	push(stack, 'b');
-	print_stack(stack);
-	pop(stack, &data);
-	print_stack(stack);
-	pop(stack, &data);
-	print_stack(stack);
-	pop(stack, &data);
-	*/
-
 	return 0;
 }
